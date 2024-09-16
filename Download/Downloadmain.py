@@ -2,7 +2,6 @@ import requests,warnings,os
 warnings.filterwarnings('ignore')
 
 version = '1.0'
-serverurl = 'https://huangzherui.github.io/Download/'
 
 def urldownload(url,path):
     down_res = requests.get(url=url,verify=False)
@@ -15,12 +14,15 @@ def urldownload(url,path):
 def cmd(cmd):
     os.system(cmd)
 
-if not os.path.exists('Download.ini'):
-    with open('Download.ini','a') as file:
-        file.write(version)
-else:
+urldownload('http://huangzherui.github.io/Download/apps.cfg','apps.cfg')
+
+if os.path.exists('Download.ini'):
     with open('Download.ini','r') as file:
-        if not version == file.read():
-            urldownload(f'{serverurl}main.py','main.py')
-            cmd('start cmd python main.py')
-            quit()
+        if not version == eval(file.read)[0]:
+            urldownload('http://huangzherui.github.io/Download/main.py','main.py')
+else:
+    with open('Download.ini','a') as file:
+        file.write('[%d,{}]'%version)
+    urldownload('http://huangzherui.github.io/Download/main.py','main.py')
+cmd('start python main.py')
+quit()
