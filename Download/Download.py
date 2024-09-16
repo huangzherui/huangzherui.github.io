@@ -1,7 +1,7 @@
 import requests,warnings,os
 warnings.filterwarnings('ignore')
 
-version = '1.0'
+version = 1.0
 
 def urldownload(url,path):
     down_res = requests.get(url=url,verify=False)
