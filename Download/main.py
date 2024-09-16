@@ -18,7 +18,7 @@ def Calculate_the_location():#计算位置
 def update(e,mark):
     messagebox.showinfo('提示','下载中……')
     urldownload(downloadprogramlist[mark]['url'],downloadprogramlist[mark]['filename'])
-    open(e,mark)
+    openfile(e,mark)
 
 def openfile(e,mark):
     global downloadprogramlist
