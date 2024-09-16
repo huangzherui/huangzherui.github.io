@@ -40,7 +40,7 @@ panel = wx.Panel(window)
 posnum = -1
 buttonlist = []
 for i in range(len(downloadprogramlist)):
-    if int(downloadprogramlist[i]['ID']) not in programlist[1] or int(downloadprogramlist[i]['version']) > programlist[1][int(downloadprogramlist[i]['ID'])]:
+    if float(downloadprogramlist[i]['version']) > programlist[1][int(downloadprogramlist[i]['ID'])]:
         buttonlist.append(wx.Button(panel, label=downloadprogramlist[i]['name'], pos=Calculate_the_location()))
         buttonlist[-1].Bind(wx.EVT_BUTTON,lambda e,mark=i:update(e,mark))
     else:
