@@ -15,15 +15,21 @@ def Calculate_the_location():#计算位置
     posnum += 1
     return ((posnum//20)*100,posnum%20*30)
 
-def OnButton(e,mark):
+def update(e,mark):
     messagebox.showinfo('提示','下载中……')
-    urldownload(programlist[mark]['url'],programlist[mark]['filename'])
-    cmd(f"start {programlist[mark]['filename']}")
+    urldownload(downloadprogramlist[mark]['url'],downloadprogramlist[mark]['filename'])
+    open(e,mark)
+
+def open(e,mark):
+    cmd(f"start {downloadprogramlist[mark]['filename']}")
 
 def cmd(cmd):
     os.system(cmd)
 
 with open('apps.cfg','r') as file:
+    downloadprogramlist = eval(file.read())
+
+with open('Download.ini','r') as file:
     programlist = eval(file.read())
 
 app = wx.App()
@@ -32,9 +38,13 @@ panel = wx.Panel(window)
 
 posnum = -1
 buttonlist = []
-for i in range(len(programlist)):
-    buttonlist.append(wx.Button(panel, label=programlist[i]['name'], pos=Calculate_the_location()))
-    buttonlist[-1].Bind(wx.EVT_BUTTON,lambda e,mark=i:OnButton(e,mark))
+for i in range(len(downloadprogramlist)):
+    if int(downloadprogramlist[i]['ID']) in programlist[1] and int(downloadprogramlist[i]['version']) > programlist[1][int(downloadprogramlist[i]['ID'])]:
+        buttonlist.append(wx.Button(panel, label=downloadprogramlist[i]['name'], pos=Calculate_the_location()))
+        buttonlist[-1].Bind(wx.EVT_BUTTON,lambda e,mark=i:update(e,mark))
+    else:
+        buttonlist.append(wx.Button(panel, label=f'打开{downloadprogramlist[i]['name']}', pos=Calculate_the_location()))
+        buttonlist[-1].Bind(wx.EVT_BUTTON,lambda e,mark=i:open(e,mark))
 
 window.Show(True) 
 app.MainLoop()
