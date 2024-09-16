@@ -43,7 +43,7 @@ for i in range(len(downloadprogramlist)):
         buttonlist.append(wx.Button(panel, label=downloadprogramlist[i]['name'], pos=Calculate_the_location()))
         buttonlist[-1].Bind(wx.EVT_BUTTON,lambda e,mark=i:update(e,mark))
     else:
-        buttonlist.append(wx.Button(panel, label=f'打开{downloadprogramlist[i]['name']}', pos=Calculate_the_location()))
+        buttonlist.append(wx.Button(panel, label=f"打开{downloadprogramlist[i]['name']}", pos=Calculate_the_location()))
         buttonlist[-1].Bind(wx.EVT_BUTTON,lambda e,mark=i:open(e,mark))
 
 window.Show(True) 
