@@ -18,7 +18,7 @@ urldownload('http://huangzherui.github.io/Download/apps.cfg','apps.cfg')
 
 if os.path.exists('Download.ini'):
     with open('Download.ini','r') as file:
-        if not version == eval(file.read)[0]:
+        if not version == eval(file.read())[0]:
             urldownload('http://huangzherui.github.io/Download/main.py','main.py')
 else:
     with open('Download.ini','a') as file:
