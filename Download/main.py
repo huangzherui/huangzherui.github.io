@@ -27,7 +27,7 @@ def openfile(e,mark):
 def cmd(cmd):
     os.system(cmd)
 
-with open('apps.cfg','r') as file:
+with open('apps.cfg','r',encoding='utf-8') as file:
     downloadprogramlist = eval(file.read())
 
 with open('Download.ini','r') as file:
