@@ -40,12 +40,16 @@ panel = wx.Panel(window)
 posnum = -1
 buttonlist = []
 for i in range(len(downloadprogramlist)):
-    if float(downloadprogramlist[i]['version']) > programlist[1][int(downloadprogramlist[i]['ID'])]:
+    try:
+        if float(downloadprogramlist[i]['version']) > programlist[1][int(downloadprogramlist[i]['ID'])]:
+            buttonlist.append(wx.Button(panel, label=downloadprogramlist[i]['name'], pos=Calculate_the_location()))
+            buttonlist[-1].Bind(wx.EVT_BUTTON,lambda e,mark=i:update(e,mark))
+        else:
+            buttonlist.append(wx.Button(panel, label=f"打开{downloadprogramlist[i]['name']}", pos=Calculate_the_location()))
+            buttonlist[-1].Bind(wx.EVT_BUTTON,lambda e,mark=i:openfile(e,mark))
+    except:
         buttonlist.append(wx.Button(panel, label=downloadprogramlist[i]['name'], pos=Calculate_the_location()))
         buttonlist[-1].Bind(wx.EVT_BUTTON,lambda e,mark=i:update(e,mark))
-    else:
-        buttonlist.append(wx.Button(panel, label=f"打开{downloadprogramlist[i]['name']}", pos=Calculate_the_location()))
-        buttonlist[-1].Bind(wx.EVT_BUTTON,lambda e,mark=i:openfile(e,mark))
 
 window.Show(True) 
 app.MainLoop()
