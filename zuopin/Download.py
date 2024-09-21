@@ -1,8 +1,6 @@
 import requests,warnings,os
 warnings.filterwarnings('ignore')
 
-version = 1.0
-
 def urldownload(url,path):
     down_res = requests.get(url=url,verify=False)
     if not os.path.exists(path):
@@ -15,10 +13,14 @@ def cmd(cmd):
     os.system(cmd)
 
 urldownload('http://huangzherui.github.io/Download/apps.cfg','apps.cfg')
+urldownload('http://huangzherui.github.io/Download/Downloadversion.ini','Downloadversion.ini')
+
+with open('Downloadversion.ini','r') as file:
+    version = float(file.read())
 
 if os.path.exists('Download.ini'):
     with open('Download.ini','r') as file:
-        if not version == eval(file.read())[0]:
+        if version < float(eval(file.read())[0]):
             urldownload('http://huangzherui.github.io/Download/main.py','main.py')
 else:
     with open('Download.ini','a') as file:
